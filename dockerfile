@@ -3,14 +3,12 @@ LABEL maintainer="Marc Singleton <marcsingleton@berkeley.edu>"
 
 ARG PYTHON_VERSION=3.11
 
-# Set noninteractive to prevent dialog during install
-# Use ARG not ENV so only available during build
-ARG DEBIAN_FRONTEND=noninteractive
-
 # Most of the following are common utilities useful for data science and CLI work
 # gcc and python3-dev were added as jupyterlab dependencies
 # python3-dev specifically is needed for some C headers
+# (DEBIAN_FRONTEND=noninteractive is needed to turn off interactive prompts for image build only)
 RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
     apt-get install --yes --no-install-recommends \
     gcc \
     git \
